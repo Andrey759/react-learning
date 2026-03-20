@@ -4,12 +4,16 @@ import DashboardPage from "../pages/DashboardPage/DashboardPage.tsx";
 
 function App() {
   return (
-    <div>
-      <header className="App-header">Моё приложение</header>
-        <main className="App-main">
-            <UserPanel />
-            <DashboardPage />
-        </main>
+    <div className="App">
+      <header className="App-header">React Learning Dashboard</header>
+      <main className="App-main">
+        <aside className="App-sidebar">
+          <UserPanel />
+        </aside>
+        <section className="App-content">
+          <DashboardPage />
+        </section>
+      </main>
     </div>
   )
 }
