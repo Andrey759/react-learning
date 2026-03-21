@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import type { User } from '../../entities/user/model/types.ts';
-import { fetchUsers } from "../../entities/user/api/fetchUsers.ts";
-import { AppError } from "../../shared/errors/AppError.ts";
-import { ERROR_MESSAGES } from "../../shared/errors/errorMessages.ts";
+import type { User } from '@/entities/user/model/types.ts';
+import { fetchUsers } from '@/entities/user/api/fetchUsers.ts';
+import { AppError } from '@/shared/errors/AppError.ts';
+import { ERROR_MESSAGES } from '@/shared/errors/errorMessages.ts';
 
 function DashboardPage() {
     const [users, setUsers] = useState<User[]>([]);

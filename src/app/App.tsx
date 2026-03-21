@@ -1,6 +1,6 @@
 import './App.css'
-import UserPanel from "../widgets/user-panel/UserPanel.tsx";
-import DashboardPage from "../pages/DashboardPage/DashboardPage.tsx";
+import UserPanel from '@/widgets/user-panel/UserPanel.tsx';
+import DashboardPage from '@/pages/DashboardPage/DashboardPage.tsx';
 
 function App() {
   return (

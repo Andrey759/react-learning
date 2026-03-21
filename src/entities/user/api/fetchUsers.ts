@@ -1,5 +1,5 @@
-import type { User } from '../model/types.ts'
-import { AppError } from '../../../shared/errors/AppError.ts'
+import type { User } from '@/entities/user/model/types.ts'
+import { AppError } from '@/shared/errors/AppError.ts'
 
 export async function fetchUsers() {
     const response = await fetch('https://jsonplaceholder.typicode.com/users');

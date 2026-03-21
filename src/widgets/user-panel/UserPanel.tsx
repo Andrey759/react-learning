@@ -1,5 +1,5 @@
-import type { User } from '../../entities/user/model/types.ts';
-import { useAuth } from '../../features/auth/useAuth.ts'
+import type { User } from '@/entities/user/model/types.ts';
+import { useAuth } from '@/features/auth/useAuth.ts'
 
 const MOCK_USERS : User[] = [
     { id: 1, name: 'John' },
