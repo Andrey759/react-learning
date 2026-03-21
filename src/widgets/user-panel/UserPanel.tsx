@@ -1,51 +1,45 @@
-import { useState } from 'react';
+import type { User } from '../../entities/user/model/types.ts';
+import { useAuth } from '../../features/auth/useAuth.ts'
 
-const MOCK_USERS = [
+const MOCK_USERS : User[] = [
     { id: 1, name: 'John' },
     { id: 2, name: 'Doe' },
     { id: 3, name: 'Alice' },
 ];
 
 function UserPanel() {
-    const [selectedId, setSelectedId] = useState<number | null>(null);
-    const selectedUserName =
-        selectedId !== null
-            ? MOCK_USERS.find(u => u.id === selectedId)?.name
-            : null;
+    const { currentUser, isAuthenticated, login, logout } = useAuth();
 
     return (
         <div className="user-panel">
-            <h2 className="user-panel__title">Вы</h2>
+            <h2 className="user-panel__title">{isAuthenticated ? currentUser?.name : 'Выберите пользователя'}</h2>
 
-            <div className="user-panel__list" role="list">
-                {MOCK_USERS.map((user) => {
-                    const isSelected = selectedId === user.id;
+            {!isAuthenticated && (
+                <div className="user-panel__list" role="list">
+                    {MOCK_USERS.map((user) => {
+                        return (
+                            <button
+                                key={user.id}
+                                type="button"
+                                className={"user-panel__user"}
+                                onClick={() => login(user)}
+                            >
+                                {user.name}
+                            </button>
+                        )}
+                    )}
+                </div>
+            )}
 
-                    return (
-                        <button
-                            key={user.id}
-                            type="button"
-                            className={`user-panel__user ${isSelected ? 'user-panel__user--selected' : ''}`}
-                            onClick={() => setSelectedId(user.id)}
-                            aria-pressed={isSelected}
-                        >
-                            {user.name}
-                        </button>
-                    );
-                })}
-            </div>
-
-            <div className="user-panel__footer">
-                {selectedUserName !== null ? (
-                    <p className="user-panel__selected">
-                        <span className="user-panel__selected-label">Выбран:</span> {selectedUserName}
-                    </p>
-                ) : (
-                    <p className="user-panel__muted">Выберите пользователя</p>
-                )}
-            </div>
+            {isAuthenticated && (
+                <div className="user-panel__footer">
+                    <button type="button" onClick={logout}>
+                        Выйти
+                    </button>
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
 export default UserPanel;
