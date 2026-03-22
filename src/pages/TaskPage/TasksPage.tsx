@@ -33,6 +33,8 @@ function TasksPage() {
 
     const taskFilter = (task: UserTask) => matchesText(task) && matchesTab(task);
 
+    const filteredTasks = tasks.filter(taskFilter);
+
     if (isLoading) {
         return (
             <div className="dashboard">
@@ -55,7 +57,7 @@ function TasksPage() {
         <div className="dashboard">
             <div className="dashboard__header">
                 <h2 className="dashboard__title">Задачи</h2>
-                <div className="dashboard__meta">{tasks.length} элементов</div>
+                <div className="dashboard__meta">{filteredTasks.length} элементов</div>
             </div>
 
             <TaskFilter
@@ -66,7 +68,7 @@ function TasksPage() {
             />
 
             <div className="dashboard__list" role="list">
-                {tasks.filter(taskFilter).map(task => (
+                {filteredTasks.map(task => (
                     <div key={task.id} className="task-card" role="listitem">
                         <div className="task-card__main">
                             <span

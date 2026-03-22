@@ -15,6 +15,7 @@ function TaskFilter(props: TaskFilterProps): React.ReactElement {
                     type="text"
                     className="task-filter__input"
                     placeholder="Поиск по названию..."
+                    value={props.filterText}
                     onChange={(event) => props.onFilterTextChange(event.target.value)}
                 />
                 {/* Подсказка: сюда придёт кнопка "Очистить" — хорошее место для useRef на input */}
