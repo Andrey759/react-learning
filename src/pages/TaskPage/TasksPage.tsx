@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import TaskFilter from '@/widgets/task-filter/TaskFilter.tsx';
-import type { Task } from "@/entities/task/model/types.ts";
+import type { UserTask } from "@/entities/task/model/types.ts";
 import { fetchTasks } from "@/entities/task/api/fetchTasks.ts";
 import { AppError } from "@/shared/errors/AppError.ts";
 import { ERROR_MESSAGES } from "@/shared/errors/errorMessages.ts";
 import {useTaskFilter} from "@/app/providers/TaskFilterProvider.tsx";
 
 function TasksPage() {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<UserTask[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>();
 
@@ -20,17 +20,17 @@ function TasksPage() {
             .finally(() => setIsLoading(false));
     }, []);
 
-    const matchesTab = (task: Task): boolean => {
+    const matchesTab = (task: UserTask): boolean => {
         switch (activeTab) {
             case 'ACTIVE':    return !task.completed;
             case 'COMPLETED': return task.completed;
             default:          return true;
         }
     }
-    const matchesText = (task: Task): boolean =>
+    const matchesText = (task: UserTask): boolean =>
         !filterText || task.title.toLowerCase().includes(filterText.toLowerCase());
 
-    const taskFilter = (task: Task) => matchesText(task) && matchesTab(task);
+    const taskFilter = (task: UserTask) => matchesText(task) && matchesTab(task);
 
     if (isLoading) {
         return (
@@ -77,7 +77,7 @@ function TasksPage() {
                                 {task.title}
                             </span>
                         </div>
-                        <div className="task-card__user">@{task.userId}</div>
+                        <div className="task-card__user">@{task.user?.username}</div>
                     </div>
                 ))}
             </div>
