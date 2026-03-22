@@ -22,3 +22,11 @@ export async function fetchTasks(): Promise<UserTask[]> {
         user: userMap.get(task.userId) ?? null,
     }));
 }
+
+export async function updateTaskStatus(id: number, completed: boolean): Promise<void> {
+    await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: completed }),
+    })
+}

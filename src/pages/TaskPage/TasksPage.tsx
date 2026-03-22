@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import TaskFilter from '@/widgets/task-filter/TaskFilter.tsx';
-import HighlightText from '@/shared/ui/HighlightText.tsx';
+import TaskCard from '@/widgets/task-list/TaskCard.tsx';
 import type { UserTask } from '@/entities/task/model/types.ts';
-import { fetchTasks } from '@/entities/task/api/fetchTasks.ts';
-import { AppError } from '`@/shared/errors/AppError.ts';
+import { fetchTasks, updateTaskStatus } from '@/entities/task/api/taskApi.ts';
+import { AppError } from '@/shared/errors/AppError.ts';
 import { ERROR_MESSAGES } from '@/shared/errors/errorMessages.ts';
 import { useTaskFilter } from '@/app/providers/TaskFilterProvider.tsx';
 
@@ -37,6 +37,25 @@ function TasksPage() {
         () => tasks.filter(taskFilter),
         [tasks, filterText, activeTab]
     );
+
+    const [loadingIds, setLoadingIds] = useState<Set<number>>(new Set());
+
+    const toggleTask = useCallback((id: number, completed: boolean) => {
+        setLoadingIds(prev => new Set(prev).add(id));
+
+        updateTaskStatus(id, !completed).then(() => {
+            setTasks(prev => prev.map(task =>
+                task.id === id ? { ...task, completed: !completed } : task
+            ));
+        }).finally(() => {
+            setLoadingIds(prev => {
+                const next = new Set(prev);
+                next.delete(id);
+                return next;
+            });
+        });
+    }, []);
+
 
     if (isLoading) {
         return (
@@ -72,19 +91,13 @@ function TasksPage() {
 
             <div className="dashboard__list" role="list">
                 {filteredTasks.map(task => (
-                    <div key={task.id} className="task-card" role="listitem">
-                        <div className="task-card__main">
-                            <span
-                                className={`task-card__status ${task.completed ? 'task-card__status--done' : 'task-card__status--todo'}`}
-                            >
-                                {task.completed ? '✓' : '○'}
-                            </span>
-                            <span className={`task-card__title ${task.completed ? 'task-card__title--done' : ''}`}>
-                                <HighlightText text={task.title} highlight={filterText} />
-                            </span>
-                        </div>
-                        <div className="task-card__user">@{task.user?.username}</div>
-                    </div>
+                    <TaskCard
+                        key={task.id}
+                        task={task}
+                        highlight={filterText}
+                        onToggle={toggleTask}
+                        isLoading={loadingIds.has(task.id)}
+                    />
                 ))}
             </div>
         </div>
