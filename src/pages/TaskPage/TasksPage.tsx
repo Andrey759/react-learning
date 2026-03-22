@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import TaskFilter from '@/widgets/task-filter/TaskFilter.tsx';
 import HighlightText from '@/shared/ui/HighlightText.tsx';
-import type { UserTask } from "@/entities/task/model/types.ts";
-import { fetchTasks } from "@/entities/task/api/fetchTasks.ts";
-import { AppError } from "@/shared/errors/AppError.ts";
-import { ERROR_MESSAGES } from "@/shared/errors/errorMessages.ts";
-import { useTaskFilter } from "@/app/providers/TaskFilterProvider.tsx";
+import type { UserTask } from '@/entities/task/model/types.ts';
+import { fetchTasks } from '@/entities/task/api/fetchTasks.ts';
+import { AppError } from '`@/shared/errors/AppError.ts';
+import { ERROR_MESSAGES } from '@/shared/errors/errorMessages.ts';
+import { useTaskFilter } from '@/app/providers/TaskFilterProvider.tsx';
 
 function TasksPage() {
     const [tasks, setTasks] = useState<UserTask[]>([]);

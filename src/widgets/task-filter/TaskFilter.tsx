@@ -1,4 +1,4 @@
-import type { FilterTab } from "@/entities/task/model/types.ts";
+import type { FilterTab } from '@/entities/task/model/types.ts';
 
 type TaskFilterProps = {
     filterText: string;

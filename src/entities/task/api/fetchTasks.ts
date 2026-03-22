@@ -1,6 +1,6 @@
 import type { Task, UserTask } from '@/entities/task/model/types.ts'
-import type { User } from "@/entities/user/model/types.ts";
-import { fetchUsers } from "@/entities/user/api/fetchUsers.ts";
+import type { User } from '@/entities/user/model/types.ts';
+import { fetchUsers } from '@/entities/user/api/fetchUsers.ts';
 import { AppError } from '@/shared/errors/AppError.ts'
 
 export async function fetchTasks(): Promise<UserTask[]> {

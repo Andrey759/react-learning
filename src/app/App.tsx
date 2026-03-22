@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css'
 import UserPanel from '@/widgets/user-panel/UserPanel.tsx';
 import TasksPage from '@/pages/TaskPage/TasksPage.tsx';
-import UserPage from "@/pages/UserPage/UserPage.tsx";
+import UserPage from '@/pages/UserPage/UserPage.tsx';
 
 type Page = 'TASKS' | 'USERS';
 

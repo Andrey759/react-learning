@@ -1,5 +1,5 @@
 // src/entities/task/model/types.ts
-import type { User } from "@/entities/user/model/types.ts";
+import type { User } from '@/entities/user/model/types.ts';
 
 export type Task = {
     userId: number;
