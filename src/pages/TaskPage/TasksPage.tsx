@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import TaskFilter from '@/widgets/task-filter/TaskFilter.tsx';
 import HighlightText from '@/shared/ui/HighlightText.tsx';
 import type { UserTask } from "@/entities/task/model/types.ts";
@@ -33,7 +33,10 @@ function TasksPage() {
 
     const taskFilter = (task: UserTask) => matchesText(task) && matchesTab(task);
 
-    const filteredTasks = tasks.filter(taskFilter);
+    const filteredTasks = useMemo(
+        () => tasks.filter(taskFilter),
+        [tasks, filterText, activeTab]
+    );
 
     if (isLoading) {
         return (
