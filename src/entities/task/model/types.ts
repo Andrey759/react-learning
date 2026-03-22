@@ -6,3 +6,5 @@ export type Task = {
     title: string;
     completed: boolean;
 };
+
+export type FilterTab = 'ALL' | 'ACTIVE' | 'COMPLETED';

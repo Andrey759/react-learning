@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import {createContext, useContext, useState} from 'react';
 import type { User } from '@/entities/user/model/types.ts'
 
 type AuthContextValue = {
@@ -10,11 +10,7 @@ type AuthContextValue = {
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
 
-type Props = {
-    children: React.ReactNode;
-};
-
-export function AuthProvider({ children }: Props) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
 
     const login = (user: User | null) => {
@@ -37,4 +33,14 @@ export function AuthProvider({ children }: Props) {
             {children}
         </AuthContext.Provider>
     );
+}
+
+export function useAuth() {
+    const ctx = useContext(AuthContext);
+
+    if (!ctx) {
+        throw new Error('useAuth must be used inside AuthProvider');
+    }
+
+    return ctx;
 }

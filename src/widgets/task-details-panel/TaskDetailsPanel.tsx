@@ -6,6 +6,3 @@ function TaskDetailsPanel() {
     </div>
   );
 }
-
-export default TaskDetailsPanel;
-
