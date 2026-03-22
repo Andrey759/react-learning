@@ -1,43 +1,76 @@
-import type { User } from '@/entities/user/model/types.ts';
-import { useAuth } from '@/app/providers/AuthProvider.tsx'
+// src/widgets/user-panel/UserPanel.tsx
 
-const MOCK_USERS : User[] = [
-    { id: 1, name: 'John' },
-    { id: 2, name: 'Doe' },
-    { id: 3, name: 'Alice' },
-];
+import { useState } from 'react';
+import { useAuth } from '@/app/providers/AuthProvider.tsx';
 
 function UserPanel() {
-    const { currentUser, isAuthenticated, login, logout } = useAuth();
+    const { state, login, logout } = useAuth();
 
-    return (
-        <div className="user-panel">
-            <h2 className="user-panel__title">{isAuthenticated ? currentUser?.name : 'Выберите пользователя'}</h2>
+    const [email, setEmail] = useState('eve.holt@reqres.in');
+    const [password, setPassword] = useState('cityslicka');
 
-            {!isAuthenticated && (
-                <div className="user-panel__list" role="list">
-                    {MOCK_USERS.map((user) => {
-                        return (
-                            <button
-                                key={user.id}
-                                type="button"
-                                className={"user-panel__user"}
-                                onClick={() => login(user)}
-                            >
-                                {user.name}
-                            </button>
-                        )}
-                    )}
+    const handleSubmit = () => {
+        if (email && password) {
+            login(email, password);
+        }
+    };
+
+    if (state.status === 'authenticated') {
+        return (
+            <div className="user-panel">
+                <div className="user-panel__auth-info">
+                    <div className="user-panel__auth-label">Вы вошли как</div>
+                    <div className="user-panel__auth-email">{state.email}</div>
                 </div>
-            )}
-
-            {isAuthenticated && (
                 <div className="user-panel__footer">
-                    <button type="button" onClick={logout}>
+                    <button type="button" className="user-panel__logout-btn" onClick={logout}>
                         Выйти
                     </button>
                 </div>
-            )}
+            </div>
+        );
+    }
+
+    return (
+        <div className="user-panel">
+            <h2 className="user-panel__title">Войти</h2>
+
+            <div className="user-panel__form">
+                <input
+                    className="user-panel__input"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    disabled={state.status === 'loading'}
+                />
+                <input
+                    className="user-panel__input"
+                    type="password"
+                    placeholder="Пароль"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    disabled={state.status === 'loading'}
+                    onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+                />
+
+                {state.status === 'error' && (
+                    <div className="user-panel__error">{state.message}</div>
+                )}
+
+                <button
+                    type="button"
+                    className="user-panel__submit-btn"
+                    onClick={handleSubmit}
+                    disabled={state.status === 'loading'}
+                >
+                    {state.status === 'loading' ? 'Вход...' : 'Войти'}
+                </button>
+
+                <div className="user-panel__hint">
+                    Тестовый аккаунт: eve.holt@reqres.in / cityslicka
+                </div>
+            </div>
         </div>
     );
 }
