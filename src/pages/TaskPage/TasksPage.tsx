@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import TaskFilter from '@/widgets/task-filter/TaskFilter.tsx';
+import HighlightText from '@/shared/ui/HighlightText.tsx';
 import type { UserTask } from "@/entities/task/model/types.ts";
 import { fetchTasks } from "@/entities/task/api/fetchTasks.ts";
 import { AppError } from "@/shared/errors/AppError.ts";
 import { ERROR_MESSAGES } from "@/shared/errors/errorMessages.ts";
-import {useTaskFilter} from "@/app/providers/TaskFilterProvider.tsx";
+import { useTaskFilter } from "@/app/providers/TaskFilterProvider.tsx";
 
 function TasksPage() {
     const [tasks, setTasks] = useState<UserTask[]>([]);
@@ -74,7 +75,7 @@ function TasksPage() {
                                 {task.completed ? '✓' : '○'}
                             </span>
                             <span className={`task-card__title ${task.completed ? 'task-card__title--done' : ''}`}>
-                                {task.title}
+                                <HighlightText text={task.title} highlight={filterText} />
                             </span>
                         </div>
                         <div className="task-card__user">@{task.user?.username}</div>

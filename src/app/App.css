@@ -571,3 +571,10 @@
   color: var(--text);
   flex-shrink: 0;
 }
+
+.highlight {
+  background: rgba(170, 59, 255, 0.35);
+  color: var(--text-h);
+  border-radius: 3px;
+  font-style: normal;
+}
