@@ -3,17 +3,17 @@ import type { User } from "@/entities/user/model/types.ts";
 import { fetchUsers } from "@/entities/user/api/fetchUsers.ts";
 import { AppError } from '@/shared/errors/AppError.ts'
 
-export async function fetchTasks() {
-    const taskResponse = await fetch('https://jsonplaceholder.typicode.com/todos');
-    const taskData: Task[] = await taskResponse.json();
+export async function fetchTasks(): Promise<UserTask[]> {
+    const [taskData, userData] = await Promise.all([
+        fetch('https://jsonplaceholder.typicode.com/todos').then(r => r.json()),
+        fetchUsers(),
+    ]);
 
-    if (!Array.isArray(taskData)) {
+    if (!Array.isArray(taskData) || !Array.isArray(userData)) {
         throw new AppError('UNEXPECTED_FORMAT');
     }
 
-    const userData: User[] = await fetchUsers();
-
-    const userMap = new Map(userData.map(u => [u.id, u]));
+    const userMap = new Map(userData.map((u: User) => [u.id, u]));
 
     return taskData.map((task: Task): UserTask => ({
         id: task.id,
