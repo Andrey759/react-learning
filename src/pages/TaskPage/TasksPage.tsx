@@ -1,28 +1,51 @@
-// Статическая заготовка страницы задач.
-// Загрузку данных (fetchTasks, useEffect, useState) реализуй сам.
+import { useState, useEffect } from "react";
 import TaskFilter from '@/features/task-filter/TaskFilter.tsx';
-
-// Временные статические данные — потом заменишь на загрузку из API
-const MOCK_TASKS = [
-    { id: 1, title: 'Установить зависимости проекта', completed: true, username: 'Bret' },
-    { id: 2, title: 'Изучить хук useState', completed: true, username: 'Antonette' },
-    { id: 3, title: 'Разобраться с useEffect и fetch', completed: false, username: 'Samantha' },
-    { id: 4, title: 'Реализовать контекст авторизации', completed: false, username: 'Karianne' },
-    { id: 5, title: 'Добавить фильтрацию задач', completed: false, username: 'Kamren' },
-];
+import type { Task } from "@/entities/task/model/types.ts";
+import { fetchTasks } from "@/entities/task/api/fetchTasks.ts";
+import { AppError } from "@/shared/errors/AppError.ts";
+import { ERROR_MESSAGES } from "@/shared/errors/errorMessages.ts";
 
 function TasksPage() {
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>();
+
+    useEffect(() => {
+        fetchTasks()
+            .then(setTasks)
+            .catch(e => setError(e instanceof AppError ? e.message : ERROR_MESSAGES.NETWORK_ERROR))
+            .finally(() => setIsLoading(false));
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="dashboard">
+                <h2 className="dashboard__title">Задачи</h2>
+                <div className="dashboard__status">Загрузка...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="dashboard">
+                <h2 className="dashboard__title">Задачи</h2>
+                <div className="dashboard__status dashboard__status--error">Ошибка: {error}</div>
+            </div>
+        );
+    }
+
     return (
         <div className="dashboard">
             <div className="dashboard__header">
                 <h2 className="dashboard__title">Задачи</h2>
-                <div className="dashboard__meta">{MOCK_TASKS.length} элементов</div>
+                <div className="dashboard__meta">{tasks.length} элементов</div>
             </div>
 
             <TaskFilter />
 
             <div className="dashboard__list" role="list">
-                {MOCK_TASKS.map((task) => (
+                {tasks.map((task) => (
                     <div key={task.id} className="task-card" role="listitem">
                         <div className="task-card__main">
                             <span
@@ -34,7 +57,7 @@ function TasksPage() {
                                 {task.title}
                             </span>
                         </div>
-                        <div className="task-card__user">@{task.username}</div>
+                        <div className="task-card__user">@{task.userId}</div>
                     </div>
                 ))}
             </div>

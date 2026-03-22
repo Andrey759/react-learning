@@ -4,7 +4,7 @@ import { fetchUsers } from '@/entities/user/api/fetchUsers.ts';
 import { AppError } from '@/shared/errors/AppError.ts';
 import { ERROR_MESSAGES } from '@/shared/errors/errorMessages.ts';
 
-function DashboardPage() {
+function UserPage() {
     const [users, setUsers] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -56,4 +56,4 @@ function DashboardPage() {
     );
 }
 
-export default DashboardPage;
+export default UserPage;

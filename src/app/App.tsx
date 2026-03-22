@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './App.css'
 import UserPanel from '@/widgets/user-panel/UserPanel.tsx';
-import DashboardPage from '@/pages/DashboardPage/DashboardPage.tsx';
 import TasksPage from '@/pages/TaskPage/TasksPage.tsx';
+import UserPage from "@/pages/UserPage/UserPage.tsx";
 
-type Page = 'TASKS' | 'DASHBOARD';
+type Page = 'TASKS' | 'USERS';
 
 function App() {
     const [activePage, setActivePage] = useState<Page>('TASKS');
@@ -20,13 +20,13 @@ function App() {
                         onClick={() => setActivePage('TASKS')}
                     >
                         Задачи
+                    </button>
                     <button
                         type="button"
-                        className={`App-nav__tab ${activePage === 'DASHBOARD' ? 'App-nav__tab--active' : ''}`}
-                        onClick={() => setActivePage('DASHBOARD')}
+                        className={`App-nav__tab ${activePage === 'USERS' ? 'App-nav__tab--active' : ''}`}
+                        onClick={() => setActivePage('USERS')}
                     >
                         Пользователи
-                    </button>
                     </button>
                 </nav>
             </header>
@@ -36,7 +36,7 @@ function App() {
                 </aside>
                 <section className="App-content">
                     {activePage === 'TASKS' && <TasksPage />}
-                    {activePage === 'DASHBOARD' && <DashboardPage />}
+                    {activePage === 'USERS' && <UserPage />}
                 </section>
             </main>
         </div>
