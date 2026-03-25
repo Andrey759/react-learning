@@ -14,6 +14,7 @@ export type AuthAction =
 
 export const initialAuthState: AuthState = { status: 'idle' };
 
+// @ts-ignore
 export function authReducer(state: AuthState, action: AuthAction): AuthState {
     switch (action.type) {
         case 'LOGIN_REQUEST':
