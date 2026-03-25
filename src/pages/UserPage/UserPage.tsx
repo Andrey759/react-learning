@@ -1,20 +1,8 @@
-import { useState, useEffect } from 'react';
-import type { User } from '@/entities/user/model/types.ts';
 import { fetchUsers } from '@/entities/user/api/fetchUsers.ts';
-import { AppError } from '@/shared/errors/AppError.ts';
-import { ERROR_MESSAGES } from '@/shared/errors/errorMessages.ts';
+import { useAsync } from '@/shared/lib/hooks/useAsync.ts';
 
 function UserPage() {
-    const [users, setUsers] = useState<User[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        fetchUsers()
-            .then(setUsers)
-            .catch(e => setError(e instanceof AppError ? e.message : ERROR_MESSAGES.NETWORK_ERROR))
-            .finally(() => setIsLoading(false));
-    }, []);
+    const { data: users, isLoading, error } = useAsync(fetchUsers);
 
     if (isLoading) {
         return (
@@ -25,7 +13,7 @@ function UserPage() {
         );
     }
 
-    if (error) {
+    if (error || !users) {
         return (
             <div className="dashboard">
                 <h2 className="dashboard__title">Пользователи</h2>
