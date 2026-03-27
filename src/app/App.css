@@ -240,11 +240,9 @@
   padding: 16px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .user-panel,
-  .dashboard {
-    background: rgba(22, 23, 29, 0.65);
-  }
+[data-theme="dark"] .user-panel,
+[data-theme="dark"] .dashboard {
+  background: rgba(22, 23, 29, 0.65);
 }
 
 .user-panel__title,
@@ -357,10 +355,8 @@
   border-color: var(--accent-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  .dashboard__userCard {
-    background: rgba(31, 32, 40, 0.35);
-  }
+[data-theme="dark"] .dashboard__userCard {
+  background: rgba(31, 32, 40, 0.35);
 }
 
 .dashboard__userMain {
@@ -397,11 +393,9 @@
   background: rgba(244, 243, 236, 0.25);
 }
 
-@media (prefers-color-scheme: dark) {
-  .page-placeholder,
-  .widget-placeholder {
-    background: rgba(31, 32, 40, 0.25);
-  }
+[data-theme="dark"] .page-placeholder,
+[data-theme="dark"] .widget-placeholder {
+  background: rgba(31, 32, 40, 0.25);
 }
 
 
@@ -526,10 +520,8 @@
   border-color: var(--accent-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  .task-card {
-    background: rgba(31, 32, 40, 0.35);
-  }
+[data-theme="dark"] .task-card {
+  background: rgba(31, 32, 40, 0.35);
 }
 
 .task-card__main {
@@ -685,6 +677,24 @@
 }
 
 .user-panel__logout-btn:hover {
+  background: rgba(170, 59, 255, 0.08);
+  border-color: var(--accent-border);
+}
+
+/* ---- Theme Toggle ---- */
+
+.theme-toggle {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.theme-toggle:hover {
   background: rgba(170, 59, 255, 0.08);
   border-color: var(--accent-border);
 }

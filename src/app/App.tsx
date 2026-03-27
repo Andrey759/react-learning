@@ -3,6 +3,7 @@ import './App.css'
 import UserPanel from '@/widgets/user-panel/UserPanel.tsx';
 import TasksPage from '@/pages/TaskPage/TasksPage.tsx';
 import UserPage from '@/pages/UserPage/UserPage.tsx';
+import { ThemeToggle } from '@/shared/ui/ThemeToggle.tsx';
 
 type Page = 'TASKS' | 'USERS';
 
@@ -29,6 +30,7 @@ function App() {
                         Пользователи
                     </button>
                 </nav>
+                <ThemeToggle />
             </header>
             <main className="App-main">
                 <aside className="App-sidebar">
