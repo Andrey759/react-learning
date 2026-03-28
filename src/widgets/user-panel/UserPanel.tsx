@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/app/providers/AuthProvider.tsx';
+import { logger } from '@/shared/lib/logger.ts';
 
 function UserPanel() {
     const { state, login, logout } = useAuth();
@@ -11,8 +12,14 @@ function UserPanel() {
 
     const handleSubmit = () => {
         if (email && password) {
+            logger.info('Form submit:', { action: 'login', email });
             login(email, password);
         }
+    };
+
+    const handleLogout = () => {
+        logger.info('Button click:', { action: 'logout' });
+        logout();
     };
 
     if (state.status === 'authenticated') {
@@ -23,7 +30,7 @@ function UserPanel() {
                     <div className="user-panel__auth-email">{state.email}</div>
                 </div>
                 <div className="user-panel__footer">
-                    <button type="button" className="user-panel__logout-btn" onClick={logout}>
+                    <button type="button" className="user-panel__logout-btn" onClick={handleLogout}>
                         Выйти
                     </button>
                 </div>

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { UserTask } from '@/entities/task/model/types';
 import { fetchTasks, updateTaskStatus } from '@/entities/task/api/taskApi';
 import { useAsync } from '@/shared/lib/hooks/useAsync';
+import { logger } from '@/shared/lib/logger.ts';
 
 export function useTasks() {
     const { data, isLoading, error } = useAsync(fetchTasks);
@@ -20,6 +21,8 @@ export function useTasks() {
             setTasks(prev => prev.map(task =>
                 task.id === id ? { ...task, completed: !completed } : task
             ));
+        }).catch(e => {
+            logger.error('Task toggle failed:', e);
         }).finally(() => {
             setLoadingIds(prev => {
                 const next = new Set(prev);

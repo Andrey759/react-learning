@@ -1,6 +1,7 @@
 import React from 'react';
 import HighlightText from '@/shared/ui/HighlightText.tsx';
 import type { UserTask } from '@/entities/task/model/types.ts';
+import { logger } from '@/shared/lib/logger.ts';
 
 type Props = {
     task: UserTask;
@@ -10,13 +11,18 @@ type Props = {
 };
 
 const TaskCard = React.memo(function TaskCard({ task, highlight, onToggle, isLoading }: Props) {
+    const handleToggle = () => {
+        logger.info('Button click:', { action: 'toggle-task', taskId: task.id, completed: task.completed });
+        onToggle(task.id, task.completed);
+    };
+
     return (
         <div key={task.id} className="task-card" role="listitem">
             <div className="task-card__main">
                 <button
                     type="button"
                     className={`task-card__status ${isLoading ? '' : task.completed ? 'task-card__status--done' : 'task-card__status--todo'}`}
-                    onClick={() => onToggle(task.id, task.completed)}
+                    onClick={handleToggle}
                     disabled={isLoading}
                     aria-label={task.completed ? 'Отметить как активную' : 'Отметить как выполненную'}
                 >

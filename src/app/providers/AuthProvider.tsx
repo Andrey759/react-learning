@@ -3,6 +3,7 @@
 import { createContext, useContext, useReducer, type ReactNode } from 'react';
 import { authReducer, initialAuthState, type AuthAction, type AuthState } from '@/entities/auth/model/authReducer.ts';
 import { loginRequest } from '@/entities/auth/api/authApi.ts';
+import { logger } from '@/shared/lib/logger.ts';
 
 type AuthContextValue = {
     state: AuthState;
@@ -22,6 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const data = await loginRequest(email, password);
             dispatch({ type: 'LOGIN_SUCCESS', payload: { email, token: data.token } });
         } catch (e) {
+            logger.error('Login failed:', e);
             dispatch({
                 type: 'LOGIN_FAILURE',
                 payload: e instanceof Error ? e.message : 'Неизвестная ошибка',

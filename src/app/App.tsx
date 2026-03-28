@@ -4,11 +4,17 @@ import UserPanel from '@/widgets/user-panel/UserPanel.tsx';
 import TasksPage from '@/pages/TaskPage/TasksPage.tsx';
 import UserPage from '@/pages/UserPage/UserPage.tsx';
 import { ThemeToggle } from '@/shared/ui/ThemeToggle.tsx';
+import { logger } from '@/shared/lib/logger.ts';
 
 type Page = 'TASKS' | 'USERS';
 
 function App() {
     const [activePage, setActivePage] = useState<Page>('TASKS');
+
+    const navigateTo = (page: Page) => {
+        logger.info('Navigation:', { page });
+        setActivePage(page);
+    };
 
     return (
         <div className="App">
@@ -18,14 +24,14 @@ function App() {
                     <button
                         type="button"
                         className={`App-nav__tab ${activePage === 'TASKS' ? 'App-nav__tab--active' : ''}`}
-                        onClick={() => setActivePage('TASKS')}
+                        onClick={() => navigateTo('TASKS')}
                     >
                         Задачи
                     </button>
                     <button
                         type="button"
                         className={`App-nav__tab ${activePage === 'USERS' ? 'App-nav__tab--active' : ''}`}
-                        onClick={() => setActivePage('USERS')}
+                        onClick={() => navigateTo('USERS')}
                     >
                         Пользователи
                     </button>
