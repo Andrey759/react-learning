@@ -1,0 +1,6 @@
+{
+  "UNEXPECTED_FORMAT": "Неожиданный формат данных",
+  "NETWORK_ERROR": "Ошибка соединения",
+  "AUTHENTICATION_ERROR": "Ошибка авторизации",
+  "UNKNOWN_ERROR": "Неизвестная ошибка"
+}

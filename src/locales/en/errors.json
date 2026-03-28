@@ -1,0 +1,6 @@
+{
+  "UNEXPECTED_FORMAT": "Unexpected data format",
+  "NETWORK_ERROR": "Network error",
+  "AUTHENTICATION_ERROR": "Authentication error",
+  "UNKNOWN_ERROR": "Unknown error"
+}

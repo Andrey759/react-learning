@@ -1,6 +1,7 @@
 // src/app/providers/AuthProvider.tsx
 
 import { createContext, useContext, useReducer, type ReactNode } from 'react';
+import i18n from '@/i18n';
 import { authReducer, initialAuthState, type AuthAction, type AuthState } from '@/entities/auth/model/authReducer.ts';
 import { loginRequest } from '@/entities/auth/api/authApi.ts';
 import { logger } from '@/shared/lib/logger.ts';
@@ -26,7 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             logger.error('Login failed:', e);
             dispatch({
                 type: 'LOGIN_FAILURE',
-                payload: e instanceof Error ? e.message : 'Неизвестная ошибка',
+                payload: e instanceof Error ? e.message : i18n.t('UNKNOWN_ERROR', { ns: 'errors' }),
             });
         }
     };

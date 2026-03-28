@@ -1,0 +1,51 @@
+{
+  "appTitle": "React Learning Dashboard",
+  "nav": {
+    "tasks": "Tasks",
+    "users": "Users"
+  },
+  "theme": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme",
+    "light": "Light theme",
+    "dark": "Dark theme"
+  },
+  "language": {
+    "ru": "\uD83C\uDDF7\uD83C\uDDFA",
+    "en": "EN"
+  },
+  "auth": {
+    "loggedInAs": "Logged in as",
+    "logout": "Log out",
+    "login": "Log in",
+    "loggingIn": "Logging in...",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "testAccount": "Test account: eve.holt@reqres.in / cityslicka"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "loading": "Loading...",
+    "error": "Error: {{message}}",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "markActive": "Mark as active",
+    "markCompleted": "Mark as completed",
+    "comingSoon": "Task list (coming soon)",
+    "comingSoonDescription": "This widget will contain a task list with basic filter handling."
+  },
+  "users": {
+    "title": "Users",
+    "loading": "Loading...",
+    "error": "Error: {{message}}",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items"
+  },
+  "filter": {
+    "searchPlaceholder": "Search by title...",
+    "statusGroup": "Filter by status",
+    "all": "All",
+    "active": "Active",
+    "completed": "Completed"
+  }
+}

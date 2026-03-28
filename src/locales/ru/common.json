@@ -1,0 +1,53 @@
+{
+  "appTitle": "React Learning Dashboard",
+  "nav": {
+    "tasks": "Задачи",
+    "users": "Пользователи"
+  },
+  "theme": {
+    "switchToLight": "Переключить на светлую тему",
+    "switchToDark": "Переключить на тёмную тему",
+    "light": "Светлая тема",
+    "dark": "Тёмная тема"
+  },
+  "language": {
+    "ru": "RU",
+    "en": "EN"
+  },
+  "auth": {
+    "loggedInAs": "Вы вошли как",
+    "logout": "Выйти",
+    "login": "Войти",
+    "loggingIn": "Вход...",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Пароль",
+    "testAccount": "Тестовый аккаунт: eve.holt@reqres.in / cityslicka"
+  },
+  "tasks": {
+    "title": "Задачи",
+    "loading": "Загрузка...",
+    "error": "Ошибка: {{message}}",
+    "itemCount_one": "{{count}} элемент",
+    "itemCount_few": "{{count}} элемента",
+    "itemCount_many": "{{count}} элементов",
+    "markActive": "Отметить как активную",
+    "markCompleted": "Отметить как выполненную",
+    "comingSoon": "Task list (coming soon)",
+    "comingSoonDescription": "В этом виджете будет список задач и базовая обработка фильтров."
+  },
+  "users": {
+    "title": "Пользователи",
+    "loading": "Загрузка...",
+    "error": "Ошибка: {{message}}",
+    "itemCount_one": "{{count}} элемент",
+    "itemCount_few": "{{count}} элемента",
+    "itemCount_many": "{{count}} элементов"
+  },
+  "filter": {
+    "searchPlaceholder": "Поиск по названию...",
+    "statusGroup": "Фильтр по статусу",
+    "all": "Все",
+    "active": "Активные",
+    "completed": "Завершённые"
+  }
+}

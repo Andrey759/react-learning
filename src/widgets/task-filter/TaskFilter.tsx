@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { FilterTab } from '@/entities/task/model/types.ts';
 import { logger } from '@/shared/lib/logger.ts';
 
@@ -9,6 +10,8 @@ type TaskFilterProps = {
 };
 
 function TaskFilter({ filterText, onFilterTextChange, activeTab, onTabChange }: TaskFilterProps): React.ReactElement {
+    const { t } = useTranslation('common');
+
     const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         logger.info('User action:', { action: 'filter-text-change', value: event.target.value });
         onFilterTextChange(event.target.value);
@@ -25,27 +28,26 @@ function TaskFilter({ filterText, onFilterTextChange, activeTab, onTabChange }: 
                 <input
                     type="text"
                     className="task-filter__input"
-                    placeholder="Поиск по названию..."
+                    placeholder={t('filter.searchPlaceholder')}
                     value={filterText}
                     onChange={handleTextChange}
                 />
-                {/* Подсказка: сюда придёт кнопка "Очистить" — хорошее место для useRef на input */}
             </div>
-            <div className="task-filter__tabs" role="group" aria-label="Фильтр по статусу">
+            <div className="task-filter__tabs" role="group" aria-label={t('filter.statusGroup')}>
                 <button type="button"
                         className={`task-filter__tab ${activeTab === 'ALL' && 'task-filter__tab--active'}`}
                         onClick={() => handleTabChange('ALL')}>
-                    Все
+                    {t('filter.all')}
                 </button>
                 <button type="button"
                         className={`task-filter__tab ${activeTab === 'ACTIVE' && 'task-filter__tab--active'}`}
                         onClick={() => handleTabChange('ACTIVE')}>
-                    Активные
+                    {t('filter.active')}
                 </button>
                 <button type="button"
                         className={`task-filter__tab ${activeTab === 'COMPLETED' && 'task-filter__tab--active'}`}
                         onClick={() => handleTabChange('COMPLETED')}>
-                    Завершённые
+                    {t('filter.completed')}
                 </button>
             </div>
         </div>

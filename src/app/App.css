@@ -698,3 +698,39 @@
   background: rgba(170, 59, 255, 0.08);
   border-color: var(--accent-border);
 }
+
+/* ---- Language Switcher ---- */
+
+.lang-switcher {
+  display: flex;
+  gap: 2px;
+}
+
+.lang-switcher__btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.lang-switcher__btn:hover {
+  background: rgba(170, 59, 255, 0.08);
+  border-color: var(--accent-border);
+}
+
+.lang-switcher__btn--active {
+  background: rgba(170, 59, 255, 0.12);
+  border-color: var(--accent-border);
+  color: var(--text-h);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

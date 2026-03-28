@@ -1,11 +1,11 @@
-// src/widgets/user-panel/UserPanel.tsx
-
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/app/providers/AuthProvider.tsx';
 import { logger } from '@/shared/lib/logger.ts';
 
 function UserPanel() {
     const { state, login, logout } = useAuth();
+    const { t } = useTranslation('common');
 
     const [email, setEmail] = useState('eve.holt@reqres.in');
     const [password, setPassword] = useState('cityslicka');
@@ -26,12 +26,12 @@ function UserPanel() {
         return (
             <div className="user-panel">
                 <div className="user-panel__auth-info">
-                    <div className="user-panel__auth-label">Вы вошли как</div>
+                    <div className="user-panel__auth-label">{t('auth.loggedInAs')}</div>
                     <div className="user-panel__auth-email">{state.email}</div>
                 </div>
                 <div className="user-panel__footer">
                     <button type="button" className="user-panel__logout-btn" onClick={handleLogout}>
-                        Выйти
+                        {t('auth.logout')}
                     </button>
                 </div>
             </div>
@@ -40,13 +40,13 @@ function UserPanel() {
 
     return (
         <div className="user-panel">
-            <h2 className="user-panel__title">Войти</h2>
+            <h2 className="user-panel__title">{t('auth.login')}</h2>
 
             <div className="user-panel__form">
                 <input
                     className="user-panel__input"
                     type="email"
-                    placeholder="Email"
+                    placeholder={t('auth.emailPlaceholder')}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     disabled={state.status === 'loading'}
@@ -54,7 +54,7 @@ function UserPanel() {
                 <input
                     className="user-panel__input"
                     type="password"
-                    placeholder="Пароль"
+                    placeholder={t('auth.passwordPlaceholder')}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     disabled={state.status === 'loading'}
@@ -71,11 +71,11 @@ function UserPanel() {
                     onClick={handleSubmit}
                     disabled={state.status === 'loading'}
                 >
-                    {state.status === 'loading' ? 'Вход...' : 'Войти'}
+                    {state.status === 'loading' ? t('auth.loggingIn') : t('auth.login')}
                 </button>
 
                 <div className="user-panel__hint">
-                    Тестовый аккаунт: eve.holt@reqres.in / cityslicka
+                    {t('auth.testAccount')}
                 </div>
             </div>
         </div>

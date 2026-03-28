@@ -1,4 +1,4 @@
-function TaskList() {
+export default function TaskList() {
   return (
     <div className="widget-placeholder">
       <h3>Task list (coming soon)</h3>

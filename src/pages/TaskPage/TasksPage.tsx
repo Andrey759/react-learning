@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import TaskFilter from '@/widgets/task-filter/TaskFilter.tsx';
 import TaskCard from '@/widgets/task-list/TaskCard.tsx';
 import type { UserTask } from '@/entities/task/model/types.ts';
@@ -8,6 +9,7 @@ import { useTaskFilter } from '@/app/providers/TaskFilterProvider.tsx';
 function TasksPage() {
     const { tasks, isLoading, error, loadingIds, toggleTask } = useTasks();
     const { filterText, setFilterText, activeTab, setActiveTab } = useTaskFilter();
+    const { t } = useTranslation('common');
 
     const filteredTasks = useMemo(() => {
         const matchesTab = (task: UserTask): boolean => {
@@ -26,8 +28,8 @@ function TasksPage() {
     if (isLoading) {
         return (
             <div className="dashboard">
-                <h2 className="dashboard__title">Задачи</h2>
-                <div className="dashboard__status">Загрузка...</div>
+                <h2 className="dashboard__title">{t('tasks.title')}</h2>
+                <div className="dashboard__status">{t('tasks.loading')}</div>
             </div>
         );
     }
@@ -35,8 +37,10 @@ function TasksPage() {
     if (error) {
         return (
             <div className="dashboard">
-                <h2 className="dashboard__title">Задачи</h2>
-                <div className="dashboard__status dashboard__status--error">Ошибка: {error}</div>
+                <h2 className="dashboard__title">{t('tasks.title')}</h2>
+                <div className="dashboard__status dashboard__status--error">
+                    {t('tasks.error', { message: error })}
+                </div>
             </div>
         );
     }
@@ -44,8 +48,10 @@ function TasksPage() {
     return (
         <div className="dashboard">
             <div className="dashboard__header">
-                <h2 className="dashboard__title">Задачи</h2>
-                <div className="dashboard__meta">{filteredTasks.length} элементов</div>
+                <h2 className="dashboard__title">{t('tasks.title')}</h2>
+                <div className="dashboard__meta">
+                    {t('tasks.itemCount', { count: filteredTasks.length })}
+                </div>
             </div>
 
             <TaskFilter

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import HighlightText from '@/shared/ui/HighlightText.tsx';
 import type { UserTask } from '@/entities/task/model/types.ts';
 import { logger } from '@/shared/lib/logger.ts';
@@ -11,6 +12,8 @@ type Props = {
 };
 
 const TaskCard = React.memo(function TaskCard({ task, highlight, onToggle, isLoading }: Props) {
+    const { t } = useTranslation('common');
+
     const handleToggle = () => {
         logger.info('Button click:', { action: 'toggle-task', taskId: task.id, completed: task.completed });
         onToggle(task.id, task.completed);
@@ -24,7 +27,7 @@ const TaskCard = React.memo(function TaskCard({ task, highlight, onToggle, isLoa
                     className={`task-card__status ${isLoading ? '' : task.completed ? 'task-card__status--done' : 'task-card__status--todo'}`}
                     onClick={handleToggle}
                     disabled={isLoading}
-                    aria-label={task.completed ? 'Отметить как активную' : 'Отметить как выполненную'}
+                    aria-label={task.completed ? t('tasks.markActive') : t('tasks.markCompleted')}
                 >
                     {isLoading ? <span className="task-card__spinner">⟳</span> : task.completed ? '✓' : '○'}
                 </button>
