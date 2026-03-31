@@ -14,7 +14,7 @@ export type AuthAction =
 
 export const initialAuthState: AuthState = { status: 'idle' };
 
-// @ts-ignore
+// @ts-expect-error state не используется, но должен оставаться первым аргументом
 export function authReducer(state: AuthState, action: AuthAction): AuthState {
     switch (action.type) {
         case 'LOGIN_REQUEST':
